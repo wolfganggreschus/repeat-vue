@@ -1,29 +1,19 @@
 <template>
   <div id="app">
-    <customer-edit></customer-edit>
+    <position-edit></position-edit>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import CustomerEdit from './components/CustomerEdit'
+import PositionEdit from './components/PositionEdit'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    CustomerEdit
+    PositionEdit
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
