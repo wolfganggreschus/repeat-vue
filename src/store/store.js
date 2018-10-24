@@ -5,10 +5,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    position: {
-      customer: 'Schitz',
-      projectName: 'lof'
-    }
+    position: []
   },
   getters: {
     getPosition: state => {
@@ -21,6 +18,10 @@ export const store = new Vuex.Store({
     },
     setCustomerToSchitz: state => {
       state.position.customer = 'Schitz'
+    },
+    addPosition: (state, payload) => {
+      state.position.push(payload)
+      console.log('mutation executed customer' + payload.customer)
     }
   },
   actions: {
@@ -29,6 +30,10 @@ export const store = new Vuex.Store({
     },
     setCustomerToSchitz: ({ commit }) => {
       commit('setCustomerToSchitz')
+    },
+    addPosition: ({ commit }, payload) => {
+      commit('addPosition', payload)
+      console.log('action executed customer' + payload.customer)
     }
   }
 })

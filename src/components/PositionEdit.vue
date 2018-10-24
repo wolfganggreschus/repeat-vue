@@ -31,7 +31,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
             <button
-              class="btn btn-primary">Submit!
+              class="btn btn-primary" @click="onSubmit">Submit!
             </button>
         </div>
       </div>
@@ -39,6 +39,7 @@
     <hr>
     <button @click="setCustomerToSchitz">zu Schitz</button>
     <button @click="setCustomerToWolfgang('Annika')">zu Wolfgang</button>
+    <button @click="onSubmit">Send Axios</button>
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="panel panel-default">
@@ -57,17 +58,33 @@
 
 <script>
 import {mapActions} from 'vuex'
+import axios from 'axios'
 
 export default {
+  data () {
+    return {
+      position: {
+        customer: '',
+        projectName: ''
+      }
+    }
+  },
   methods: {
     ...mapActions([
       'setCustomerToSchitz',
       'setCustomerToWolfgang'
-    ])
-  },
-  computed: {
-    position () {
-      return this.$store.getters.getPosition
+    ]),
+    onSubmit () {
+      const formData = {
+        customer: this.position.customer,
+        projectName: this.position.projectName
+      }
+      console.log('submitted')
+      // alert(formData)
+      axios.post('https://vuejs-http-61f95.firebaseio.com/positions.json', this.position)
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+      this.$store.dispatch('addPosition', formData)
     }
   }
 }
