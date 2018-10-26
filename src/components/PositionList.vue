@@ -6,11 +6,13 @@
             {{ "Kunde: " + position.customer + ' Projekt: ' + position.projectName }}
         </li>
         </ul>
-        <button @click="getCurrentPositions">Update</button>
+        <button>Update</button>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -18,13 +20,21 @@ export default {
       ]
     }
   },
-  methods: {
-    getCurrentPositions () {
-      this.positions = this.$store.getters.getPosition
-    }
-  },
-  created: function () {
-    this.getCurrentPositions()
+  created () {
+    axios.get('https://vuejs-http-61f95.firebaseio.com/positions.json')
+      .then(res => {
+        const data = res.data
+        const positions = []
+        for (let key in data) {
+          const position = data[key]
+          position.id = key
+          positions.push(position)
+        }
+        console.log('axios succeed')
+        console.log(positions)
+        this.positions = positions
+      })
+      .catch(error => console.log(error))
   }
 }
 </script>
